@@ -1,0 +1,30 @@
+<div class="search-container">
+  <h2>Busca de Usuários</h2>
+
+  <div class="search-box">
+    <input type="text" [formControl]="searchControl" placeholder="Digite para buscar...">
+    <span *ngIf="isLoading" class="loading">Buscando...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div class="results-container">
+    <h3>Resultados:</h3>
+
+    <div *ngIf="(users$ | async)?.length === 0" class="no-results">
+      Nenhum usuário encontrado.
+    </div>
+
+    <div *ngIf="users$ | async as users">
+      <div *ngFor="let user of users" class="user-card">
+        <div class="user-avatar">{{ user.name.charAt(0) }}</div>
+        <div class="user-details">
+          <div class="user-name">{{ user.name }}</div>
+          <div class="user-email">{{ user.email }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
